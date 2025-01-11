@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 09:18:27 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/01/10 12:09:25 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/01/11 13:57:31 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,17 +131,25 @@ void	parent(char **av, int *p_fd, char **env)
 
 int	main(int ac, char **av, char **env)
 {
-	int		p_fd[2];
-	pid_t	pid;
+	int		pipe_fd[2];                   //array holding file d. for the pipe
+	pid_t	pipe_id;                     //holds process id returned after forking
 
-	if (ac != 5)
-		exit_handler(1);
-	if (pipe(p_fd) == -1)
+	if (ac > 5)                       // args should be less than 5 (./pipex file1 cmd1 cmd2 file2)
+		exit_error(1);               //handle error then exit the program
+
+	pipe(pipe_fd);                  //pipe creation, storing the fd in pipe_fd
+	pipe_id = fork();               //forking new process ; child id stored in pipe_id
+
+	if (pipe(pipe_fd) == -1)           //if pipe function fails
 		exit(-1);
-	pid = fork();
-	if (pid == -1)
-		exit(-1);
-	if (!pid)
-		child(av, p_fd, env);
-	parent(av, p_fd, env);
+
+	if (pipe_id == -1)                 //if pipe returns an error
+	{
+		perror("ERROR PIPE");
+		exit(EXIT_FAILURE);
+	}
+
+	if (!pipe_id)                 //checks if the current process in the child (child id i 0), if true it calls the function child
+		child(av, pipe_fd, env);
+	parent(av, pipe_fd, env);     //if the current process is not a child it calls the parent function
 }
