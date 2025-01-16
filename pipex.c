@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 09:18:27 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/01/16 18:14:42 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/01/16 20:34:39 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,38 @@ void	child2(char **cmd_str, int *pipe_fd, char **env)
 	execution(cmd_str[3], env);
 }
 
+
+// 
+// void	execution(char *cmd, char **env)
+// {
+	// char	**split_cmd;                   //array of commands getting piped
+	// char	*exec_path;                    //exec environemnt
+	// size_t	x;
+// 
+// 
+// 
+ 	// split_cmd = ft_split(cmd, ' ');                   //commnad splited and stored in 2d array      //file1 cmd1 | cmd2 file2
+// 
+// 
+	// exec_path = get_path(split_cmd[0], env);            //finds the path of executable
+// 
+// 
+// 
+	// if (execve(exec_path, split_cmd, env) == -1)     //execution and handling of errors and freeing
+	// {
+		// ft_putstr_fd("pipex: command not found: ", 2);
+		// ft_putendl_fd(split_cmd[0], 2);
+		// x = 0;
+		// while (split_cmd[x])
+		// {
+			// free(split_cmd[x]);
+			// x++;
+		// }
+		// free(split_cmd);
+		// exit(0);
+	// }
+// }
+// 
 void	pipe_execution(char *av, char **env)
 {
 	int		pipe_fd[2];                   //array holding file d. for the pipe
