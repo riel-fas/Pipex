@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 09:18:27 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/01/12 12:57:35 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/01/14 13:35:15 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,13 @@ void	parent(char **cmds, int *pipe_fd, char **env)
 	int	fd;
 
 	fd = open(cmds[1], O_RDONLY, 0777);
-	dup2(fd, 1);
-	dup2(pipe_fd[0], 0);
-	close(pipe_fd[1]);
+
+	dup2(fd, 1);              //redirect stdout to write in to file2
+
+	dup2(pipe_fd[0], 0);           //redirect stdin to read from the pipe
+
+	close(pipe_fd[1]);         //close pipe wrie
+
 	execution(cmds[3], env);
 }
 
@@ -28,10 +32,15 @@ void	child(char **cmds, int *pipe_fd, char **env)
 	int	fd;
 
 	// fd = open_file(av[1], 0);
-	fd = open(cmds[1], O_RDONLY, 0777);
-	dup2(fd, 0);
-	dup2(pipe_fd[1], 1);
-	close(pipe_fd[0]);
+
+	fd = open(cmds[1], O_RDONLY, 0777);              //opens file1(cmds1)
+
+	dup2(fd, 0);               //redirects stdin to read from cmds1
+
+	dup2(pipe_fd[1], 1);               //redirects stdoutto write to the pipe
+
+	close(pipe_fd[0]);              //close pipe read
+
 	execution(cmds[2], env);
 }
 
@@ -46,8 +55,11 @@ void	execution(char *cmd, char **env)
  	split_cmd = ft_split(cmd, ' ');                   //commnad splited and stored in 2d array      //file1 cmd1 | cmd2 file2
 
 
-	exec_path = get_path(split_cmd[0], env);
-	if (execve(exec_path, split_cmd, env) == -1)
+	exec_path = get_path(split_cmd[0], env);            //finds the path of executable
+
+
+
+	if (execve(exec_path, split_cmd, env) == -1)     //execution and handling of errors and freeing
 	{
 		ft_putstr_fd("pipex: command not found: ", 2);
 		ft_putendl_fd(split_cmd[0], 2);
