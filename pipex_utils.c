@@ -6,18 +6,13 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 09:18:20 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/01/12 12:25:42 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/01/16 13:05:03 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	exit_error(int n_exit)
-{
-	if (n_exit == 1)
-		ft_putstr_fd("ERROR, too many arguments\n", 2);
-	exit(0);
-}
+
 
 // int	open_file(char *file, int in_or_out)
 // {
@@ -38,6 +33,8 @@ char	*get_env(char *name, char **env)
 	int		y;
 	char	*sub;
 
+	if (!name || !env)
+		return (NULL);
 	x = 0;
 	while (env[x])
 	{
@@ -45,6 +42,8 @@ char	*get_env(char *name, char **env)
 		while (env[x][y] && env[x][y] != '=')
 			y++;
 		sub = ft_substr(env[x], 0, y);
+		if (!sub)
+			return (NULL);
 		if (!ft_strcmp(sub, name))
 		{
 			free(sub);
@@ -62,11 +61,10 @@ char	*get_path(char *cmd, char **env)
 	char	*exec;
 	char	**allpath;
 	char	*path_part;
-	char	**s_cmd;
 
 	i = -1;
-	allpath = ft_split(my_getenv("PATH", env), ':');
-	s_cmd = ft_split(cmd, ' ');
+	allpath = ft_split(getenv("PATH", env), ':');
+	// s_cmd = ft_split(cmd, ' ');
 	while (allpath[++i])
 	{
 		path_part = ft_strjoin(allpath[i], "/");
@@ -80,7 +78,7 @@ char	*get_path(char *cmd, char **env)
 		free(exec);
 	}
 	ft_free_tab(allpath);
-	ft_free_tab(s_cmd);
-	return (cmd);
+	// ft_free_tab(s_cmd);
+	return (NULL);
 }
 

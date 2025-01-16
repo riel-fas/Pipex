@@ -6,97 +6,89 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 09:18:27 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/01/14 13:35:15 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/01/16 18:14:42 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	parent(char **cmds, int *pipe_fd, char **env)
+void	child1(char **cmd_str, int *pipe_fd, char **env)
 {
 	int	fd;
 
-	fd = open(cmds[1], O_RDONLY, 0777);
-
-	dup2(fd, 1);              //redirect stdout to write in to file2
-
-	dup2(pipe_fd[0], 0);           //redirect stdin to read from the pipe
-
-	close(pipe_fd[1]);         //close pipe wrie
-
-	execution(cmds[3], env);
-}
-
-void	child(char **cmds, int *pipe_fd, char **env)
-{
-	int	fd;
-
-	// fd = open_file(av[1], 0);
-
-	fd = open(cmds[1], O_RDONLY, 0777);              //opens file1(cmds1)
-
-	dup2(fd, 0);               //redirects stdin to read from cmds1
-
-	dup2(pipe_fd[1], 1);               //redirects stdoutto write to the pipe
-
-	close(pipe_fd[0]);              //close pipe read
-
-	execution(cmds[2], env);
-}
-
-void	execution(char *cmd, char **env)
-{
-	char	**split_cmd;                   //array of commands getting piped
-	char	*exec_path;                    //exec environemnt
-	size_t	x;
-
-
-
- 	split_cmd = ft_split(cmd, ' ');                   //commnad splited and stored in 2d array      //file1 cmd1 | cmd2 file2
-
-
-	exec_path = get_path(split_cmd[0], env);            //finds the path of executable
-
-
-
-	if (execve(exec_path, split_cmd, env) == -1)     //execution and handling of errors and freeing
+	fd = open(cmd_str[1], O_RDONLY);
+	if (fd == -1)
 	{
-		ft_putstr_fd("pipex: command not found: ", 2);
-		ft_putendl_fd(split_cmd[0], 2);
-		x = 0;
-		while (split_cmd[x])
-		{
-			free(split_cmd[x]);
-			x++;
-		}
-		free(split_cmd);
-		exit(0);
+		perror("Error opening output file");
+		exit(EXIT_FAILURE);
 	}
+	dup2(fd, 1);              //redirect stdout to write in to file2
+	dup2(pipe_fd[1], 0);           //redirect stdin to read from the pipe
+	close(pipe_fd[0]);         //close pipe wrie
+	close(fd);
+	execution(cmd_str[2], env);
+}
+
+void	child2(char **cmd_str, int *pipe_fd, char **env)
+{
+	int	fd;
+
+	fd = open(cmd_str[4], O_RDONLY);              //opens file1(cmds1)
+	if (fd == -1)
+	{
+		perror("Error opening output file");
+		exit(EXIT_FAILURE);
+	}
+	dup2(fd, 0);               //redirects stdin to read from cmds1
+	dup2(pipe_fd[0], 1);               //redirects stdoutto write to the pipe
+	close(pipe_fd[0]);              //close pipe read
+	close(fd);
+	execution(cmd_str[3], env);
+}
+
+void	pipe_execution(char *av, char **env)
+{
+	int		pipe_fd[2];                   //array holding file d. for the pipe
+	pid_t	child_id1;
+	pid_t	child_id2;
+
+		if (pipe(pipe_fd) == -1)
+	{
+		perror("Pipe error");
+		return(EXIT_FAILURE);
+	}
+	child_id1 = fork();               //forking new process(child1) ;
+	if (child_id1 == -1)           //if pipe function fails
+	{
+		perror("Fork error");
+		return(EXIT_FAILURE);
+	}
+	if (child_id1 == 0)                 //if pipe returns an error
+		child1(av, pipe_fd, env);
+	child_id2 = fork();
+	id (child_id2 == -1)
+	{
+		perror("Fork error");
+		return(EXIT_FAILURE);
+	}
+	if (child_id2 == 0)
+		child2(av, pipe_fd, env);
+
+	close(pipe_fd[0]);
+	close(pipe_fd[1]);
+
+	waitpid(child_id1, NULL, 0);
+	waitpid(child_id2, NULL, 0);
 }
 
 
 int	main(int ac, char **av, char **env)
 {
-	int		pipe_fd[2];                   //array holding file d. for the pipe
-	pid_t	pipe_id;                     //holds process id returned after forking
-
-	if (ac > 5)                       // args should be less than 5 (./pipex file1 cmd1 cmd2 file2)
-		exit_error(1);               //handle error then exit the program
-
-	pipe(pipe_fd);                  //pipe creation, storing the fd in pipe_fd
-	pipe_id = fork();               //forking new process ; child id stored in pipe_id
-
-	if (pipe(pipe_fd) == -1)           //if pipe function fails
-		exit(-1);
-
-	if (pipe_id == -1)                 //if pipe returns an error
+	if (ac != 5)                       // args should be less than 5 (./pipex file1 cmd1 cmd2 file2)
 	{
-		perror("ERROR PIPE");
-		exit(EXIT_FAILURE);
+		ft_putstr_fd("ERROR, too many arguments\n", 2);
+		exit(-1);
 	}
-
-	if (!pipe_id)                 //checks if the current process in the child (child id i 0), if true it calls the function child
-		child(av, pipe_fd, env);
-	else
-		parent(av, pipe_fd, env);     //if the current process is not a child it calls the parent function
+	pipe_execution(av, env);
+	return(EXIT_SUCCESS);
 }
