@@ -4,7 +4,7 @@ CC = cc
 
 CFLAGS = -Wall -Werror -Wextra
 
-CFILES = pipex.c pipex_utils.c libft/libft.a
+CFILES = pipex.c pipex_utils.c libft/libft.a 
 
 OFILES = $(CFILES:.c=.o)
 

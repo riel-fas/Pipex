@@ -1,23 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/16 10:11:41 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/01/16 10:38:45 by riel-fas         ###   ########.fr       */
+/*   Created: 2025/01/17 11:56:07 by riel-fas          #+#    #+#             */
+/*   Updated: 2025/01/17 11:56:09 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strcmp(char *s1, char *s2)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	int	i;
+	unsigned char	*p1;
+	unsigned char	*p2;
+	size_t			x;
 
-	i = 0;
-	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
-		i++;
-	return (s1[i] - s2[i]);
+	p1 = (unsigned char *)s1;
+	p2 = (unsigned char *)s2;
+	x = 0;
+	if (n == 0)
+		return (0);
+	while (x < n && (s1[x] != '\0' || s2[x] != '\0'))
+	{
+		if (p1[x] != p2[x])
+			return (p1[x] - p2[x]);
+		x++;
+	}
+	return (0);
 }

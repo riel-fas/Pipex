@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 10:01:08 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/01/12 12:25:55 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/01/17 16:40:00 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,11 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include <stdio.h>
-# include "../libft/libft.h"
+# include "libft/libft.h"
 
-char	*get_env(char *name, char **env);
-char	*get_path(char *cmd, char **env);
-
-
-
+void	cmds_execution(char *cmd_str, char **env);
+char	*get_the_path(char *cmd, char **env);
+void	ft_free_tab(char **tab);
 
 
 #endif

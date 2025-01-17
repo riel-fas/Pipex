@@ -4,7 +4,7 @@ CC	= cc
 
 CCFLAGS	= -Wall -Wextra -Werror
 
-SRC = ft_strlen.c ft_strdup.c ft_strjoin.c ft_split.c ft_putchar_fd.c ft_putendl_fd.c ft_strlcpy.c ft_strlcat.c ft_substr.c ft_putstr_fd.c
+SRC = ft_strncmp.c ft_strlen.c ft_strdup.c ft_strjoin.c ft_split.c ft_putchar_fd.c ft_putendl_fd.c ft_strlcpy.c ft_strlcat.c ft_substr.c ft_putstr_fd.c
 
 OBJ = $(SRC:.c=.o)
 
