@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 09:18:27 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/01/19 12:50:38 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/01/19 13:57:01 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,16 +100,23 @@ void	cmds_execution(char *cmd_str, char **env)
 		// return (EXIT_FAILURE);
 	}
 	exec_path = get_the_path(split_cmds_line[0], env);
-	if (execve(exec_path, split_cmds_line, env) == -1 || !exec_path)
+	if (!exec_path || execve(exec_path, split_cmds_line, env) == -1)
 	{
-		ft_putstr_fd("pipex: command not found: \n", 2);
+		ft_putstr_fd("hona exec path == ", 2);
+		ft_putstr_fd(exec_path, 2);
+		ft_putstr_fd("\n", 2);
+		ft_putstr_fd("split cmd == ", 2);
+		ft_putstr_fd(split_cmds_line[0], 2);
+		ft_putstr_fd("\n", 2);
+
+		ft_putstr_fd("pipex: command not found: ", 2);
 		ft_putendl_fd(split_cmds_line[0], 2);
 		x = 0;
 		while (split_cmds_line[x])
 			free(split_cmds_line[x++]);
 		free(split_cmds_line);
-		if (exec_path)
-			free(exec_path);
+		// if (exec_path)
+		// 	free(exec_path);
 		exit(EXIT_FAILURE);
 	}
 }
