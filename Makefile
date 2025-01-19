@@ -4,27 +4,36 @@ CC = cc
 
 CFLAGS = -Wall -Werror -Wextra
 
-CFILES = pipex.c pipex_utils.c libft/libft.a 
+SRCS = pipex.c pipex_utils.c
 
-OFILES = $(CFILES:.c=.o)
+LIBFT = libft/libft.a
+
+OBJS = $(SRCS:.c=.o)
 
 HEADER = pipex.h
 
-all : $(NAME)
 
-$(NAME) : $(OFILES) $(HEADER)
-	$(CC) $(CFLAGS)  $(OFILES) -o $(NAME)
 
-%.o : %.c
+
+all: $(NAME)
+
+$(NAME): $(OBJS) $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
+
+$(LIBFT):
+	make -C libft
+
+%.o: %.c $(HEADER)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -rf $(OFILES)
+	rm -rf $(OBJS)
+	make clean -C libft
 
 fclean: clean
 	rm -rf $(NAME)
-
+	make fclean -C libft
 
 re: fclean all
 
-.PHONY : all clean fclean re
+.PHONY: all clean fclean re
