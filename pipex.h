@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 10:01:08 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/01/17 16:40:00 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/01/23 13:59:48 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 void	cmds_execution(char *cmd_str, char **env);
 char	*get_the_path(char *cmd, char **env);
 void	ft_free_tab(char **tab);
+char **com_pars(char *cmd_str);
+
 
 
 #endif
