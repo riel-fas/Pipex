@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 09:18:27 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/01/25 19:20:25 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/01/25 21:55:06 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	child2(char **cmd_str, int *pipe_fd, char **env)
 	fd = open(cmd_str[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
 	{
-		perror("Error opening outfile");
+		perror("No such file or directory");
 		exit(EXIT_FAILURE);
 	}
 	dup2(fd, 1);
@@ -89,7 +89,7 @@ void	cmds_execution(char *cmd_str, char **env)
 	split_cmds_line = com_pars(cmd_str);
 	if (!split_cmds_line || !split_cmds_line[0])
 	{
-		ft_putstr_fd("ERROR: Invalid command\n", 2);
+		ft_putstr_fd("PIPEX:command not found\n", 2);
 		exit(EXIT_FAILURE);
 	}
 	exec_path = get_the_path(split_cmds_line[0], env);

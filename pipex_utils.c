@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 09:18:20 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/01/25 20:22:07 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/01/25 21:15:02 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,5 @@ char **com_pars(char *cmd_str)
 	}
 	result[k] = NULL;
 	free(arg);
-	return result;i
+	return result;
 }
