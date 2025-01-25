@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 09:18:20 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/01/25 21:15:02 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/01/25 22:38:13 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,21 @@ char	*get_the_path(char *cmd, char **env)
 	return (NULL);
 }
 
+static void	quotes_word_handling(int *i, int *j, char *cmd_str, char *arg)
+{
+	char quote;
+
+	while (cmd_str[*i] == ' ')
+		(*i)++;
+	if (cmd_str[*i] == '"' || cmd_str[*i] == '\'')
+	{
+			quote = cmd_str[(*i)++];
+			while (cmd_str[*i] && cmd_str[*i] != quote)
+				arg[(*j)++] = cmd_str[(*i)++];
+			if (cmd_str[*i] == quote)
+				(*i)++;
+	}
+}
 char **com_pars(char *cmd_str)
 {
 	int		i;
