@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 09:18:27 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/01/25 21:55:06 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/01/26 09:10:09 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,39 +46,6 @@ void	child2(char **cmd_str, int *pipe_fd, char **env)
 	close(pipe_fd[1]);
 	// close(fd);
 	cmds_execution(cmd_str[3], env);
-}
-
-void	pipe_execution(char **av, char **env)
-{
-	int		pipe_fd[2];
-	pid_t	child_id1;
-	pid_t	child_id2;
-
-	if (pipe(pipe_fd) == -1)
-	{
-		perror("pipe failed");
-		exit(EXIT_FAILURE);
-	}
-	child_id1 = fork();
-	if (child_id1 == -1)
-		perror("Fork error");
-	if (child_id1 == 0)
-	{
-		close(pipe_fd[0]);
-		child1(av, pipe_fd, env);
-	}
-	child_id2 = fork();
-	if (child_id2 == -1)
-		perror("Fork error");
-	if (child_id2 == 0)
-	{
-		close(pipe_fd[1]);
-		child2(av, pipe_fd, env);
-	}
-	close(pipe_fd[0]);
-	close(pipe_fd[1]);
-	waitpid(child_id1, NULL, 0);
-	waitpid(child_id2, NULL, 0);
 }
 
 void	cmds_execution(char *cmd_str, char **env)
