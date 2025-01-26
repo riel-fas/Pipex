@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 09:18:27 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/01/26 09:10:09 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/01/26 10:45:31 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,12 @@ void	child1(char **cmd_str, int *pipe_fd, char **env)
 		exit(EXIT_FAILURE);
 	}
 	dup2(fd, 0);
-	// close(fd);
+	// dup2(fd, STDIN_FILENO);
+	close(fd);
 	dup2(pipe_fd[1], 1);
+	// dup2(pipe_fd[1], STDOUT_FILENO);
 	close(pipe_fd[0]);
-	// close(pipe_fd[1]);
+	close(pipe_fd[1]);
 	cmds_execution(cmd_str[2], env);
 }
 
@@ -41,10 +43,12 @@ void	child2(char **cmd_str, int *pipe_fd, char **env)
 		exit(EXIT_FAILURE);
 	}
 	dup2(fd, 1);
+	// dup2(fd, STDOUT_FILENO);
+	close(fd);
 	dup2(pipe_fd[0], 0);
-	// close(pipe_fd[0]);
+	// dup2(pipe_fd[0], STDIN_FILENO);
+	close(pipe_fd[0]);
 	close(pipe_fd[1]);
-	// close(fd);
 	cmds_execution(cmd_str[3], env);
 }
 
@@ -53,7 +57,7 @@ void	cmds_execution(char *cmd_str, char **env)
 	char	**split_cmds_line;
 	char	*exec_path;
 
-	split_cmds_line = com_pars(cmd_str);
+	split_cmds_line = ft_split(cmd_str, ' ');
 	if (!split_cmds_line || !split_cmds_line[0])
 	{
 		ft_putstr_fd("PIPEX:command not found\n", 2);
@@ -76,12 +80,13 @@ void	cmds_execution(char *cmd_str, char **env)
 	ft_free_tab(split_cmds_line);
 }
 
-int	main(int ac, char **av, char **env)
+int main(int ac, char **av, char **env)
 {
 	if (ac != 5)
 	{
-		ft_putstr_fd("ERROR, in arguments\n", 2);
-		exit(-1);
+		ft_putstr_fd("ERROR: Invalid number of arguments\n", 2);
+		ft_putstr_fd("Usage: ./pipex infile cmd1 cmd2 outfile\n", 2);
+		exit(EXIT_FAILURE);
 	}
 	pipe_execution(av, env);
 	return (EXIT_SUCCESS);
