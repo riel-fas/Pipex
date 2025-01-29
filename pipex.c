@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 09:18:27 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/01/26 10:45:31 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/01/29 16:51:56 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	cmds_execution(char *cmd_str, char **env)
 	char	**split_cmds_line;
 	char	*exec_path;
 
-	split_cmds_line = ft_split(cmd_str, ' ');
+	split_cmds_line = com_pars(cmd_str);
 	if (!split_cmds_line || !split_cmds_line[0])
 	{
 		ft_putstr_fd("PIPEX:command not found\n", 2);
