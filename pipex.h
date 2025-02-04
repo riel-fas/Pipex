@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 10:01:08 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/02/02 00:22:22 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/02/04 12:59:29 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,10 @@
 # define PIPEX_H
 
 # include <sys/types.h>
-# include <unistd.h>
 # include <fcntl.h>
-# include <stdlib.h>
 # include <stdio.h>
 # include "libft/libft.h"
-# include <string.h>
-#include <sys/wait.h>
+# include <sys/wait.h>
 
 typedef struct s_parser
 {

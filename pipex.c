@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 09:18:27 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/01/29 16:51:56 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/02/04 13:04:25 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,12 @@ void	child1(char **cmd_str, int *pipe_fd, char **env)
 	fd = open(cmd_str[1], O_RDONLY);
 	if (fd == -1)
 	{
-		perror("No such file or directory");
+		perror("pipex");
 		exit(EXIT_FAILURE);
 	}
 	dup2(fd, 0);
-	// dup2(fd, STDIN_FILENO);
 	close(fd);
 	dup2(pipe_fd[1], 1);
-	// dup2(pipe_fd[1], STDOUT_FILENO);
 	close(pipe_fd[0]);
 	close(pipe_fd[1]);
 	cmds_execution(cmd_str[2], env);
@@ -39,14 +37,12 @@ void	child2(char **cmd_str, int *pipe_fd, char **env)
 	fd = open(cmd_str[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
 	{
-		perror("No such file or directory");
+		perror("pipex");
 		exit(EXIT_FAILURE);
 	}
 	dup2(fd, 1);
-	// dup2(fd, STDOUT_FILENO);
 	close(fd);
 	dup2(pipe_fd[0], 0);
-	// dup2(pipe_fd[0], STDIN_FILENO);
 	close(pipe_fd[0]);
 	close(pipe_fd[1]);
 	cmds_execution(cmd_str[3], env);
@@ -80,7 +76,7 @@ void	cmds_execution(char *cmd_str, char **env)
 	ft_free_tab(split_cmds_line);
 }
 
-int main(int ac, char **av, char **env)
+int	main(int ac, char **av, char **env)
 {
 	if (ac != 5)
 	{

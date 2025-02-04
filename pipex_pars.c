@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_path.c                                       :+:      :+:    :+:   */
+/*   pipex_pars.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/10 09:18:20 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/02/02 00:21:42 by riel-fas         ###   ########.fr       */
+/*   Created: 2025/02/03 11:12:39 by riel-fas          #+#    #+#             */
+/*   Updated: 2025/02/04 12:59:41 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	**com_pars(char *cmd_str)
 	t_parser	p;
 
 	p.result = malloc(sizeof(char *) * 256);
-	p.arg = malloc(strlen(cmd_str) + 1);
+	p.arg = malloc(ft_strlen(cmd_str) + 1);
 	p.i = 0;
 	p.j = 0;
 	p.k = 0;
@@ -56,7 +56,7 @@ char	**com_pars(char *cmd_str)
 		if (p.j > 0)
 		{
 			p.arg[p.j] = '\0';
-			p.result[p.k++] = strdup(p.arg);
+			p.result[p.k++] = ft_strdup(p.arg);
 			p.j = 0;
 		}
 	}
