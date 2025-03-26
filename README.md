@@ -1,33 +1,65 @@
-# Pipex Project
+# 📡 Pipex Project
 
-![Pipex Logo](https://via.placeholder.com/200x50?text=Pipex+Logo)  
-*Your Shell Piping Simulation*
-
-Welcome to the **Pipex** project for the 1337 School curriculum! This project aims to create a program that simulates shell piping and file redirection, implementing core system-level programming concepts in C.
-
----
+<div align="center">
+    <img src="/api/placeholder/600/200" alt="Pipex Banner" />
+    <br>
+    <img src="/api/placeholder/100/100" alt="42 Network Logo" />
+    <img src="/api/placeholder/100/100" alt="1337 School Logo" />
+</div>
 
 ## 🚀 Project Overview
 
-The **Pipex** project simulates the functionality of shell piping, handling processes, file descriptors, and redirection. The program allows multiple commands to be executed in sequence, where the output of one command is passed as input to the next, just like using the `|` operator in a shell.
+Pipex is a challenging system programming project that simulates the behavior of shell pipe (`|`) functionality in Unix/Linux systems. The goal is to create a program that replicates the pipe mechanism by executing multiple commands and managing their input/output streams.
 
-**Key Concepts Covered:**
+## 🛠 Technologies & Languages
 
-- **System Calls**: `pipe()`, `fork()`, `exec()`
-- **File Descriptors**: Input/Output redirection
-- **Process Management**: Parent and child processes
+![C Language](https://img.shields.io/badge/Language-C-blue?style=for-the-badge&logo=c)
+![Unix](https://img.shields.io/badge/Platform-Unix/Linux-green?style=for-the-badge&logo=linux)
 
----
+## 📋 Project Requirements
 
-## ⚡ Features
+- Recreate shell pipe behavior
+- Handle multiple command executions
+- Manage file inputs and outputs
+- Implement error handling
+- Use system calls like `fork()`, `pipe()`, `exec()`, etc.
 
-- **Pipe Handling**: Simulates piping between processes.
-- **File Redirection**: Supports input and output redirection to/from files.
-- **Error Management**: Graceful error handling with clear messages.
-- **Flexible Execution**: Supports multiple commands and argument parsing.
+## 🔧 Key Concepts
 
----
+- Process Creation
+- Inter-Process Communication
+- File Descriptors
+- System Calls
+- Error Handling
 
+## 💻 Compilation & Usage
 
-   [Infile] -> [cmd1] -> [pipe] -> [cmd2] -> [Outfile]
-   (Input)    (Command 1)  (Pipe)   (Command 2)  (Output)
+```bash
+# Compile the project
+make
+
+# Run the program
+./pipex input_file cmd1 cmd2 output_file
+```
+
+## 📝 Example
+
+```bash
+# Mimics: < input.txt grep Hello | wc -l > output.txt
+./pipex input.txt "grep Hello" "wc -l" output.txt
+```
+
+## 🎯 Project Goals
+
+1. Understand Unix process management
+2. Learn system programming concepts
+3. Improve low-level programming skills
+4. Gain expertise in C programming
+
+## 🚧 Error Handling
+
+- Validate input parameters
+- Check file permissions
+- Handle command execution failures
+- Manage memory leaks
+
