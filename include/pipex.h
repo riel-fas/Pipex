@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 10:01:08 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/02/04 12:59:29 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/03/26 16:01:29 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <sys/types.h>
 # include <fcntl.h>
 # include <stdio.h>
-# include "libft/libft.h"
+# include "../libft/libft.h"
 # include <sys/wait.h>
 
 typedef struct s_parser

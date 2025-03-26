@@ -6,11 +6,11 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 09:46:58 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/02/02 00:21:38 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/03/26 16:01:17 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../include/pipex.h"
 
 void	ft_free_tab(char **tab)
 {

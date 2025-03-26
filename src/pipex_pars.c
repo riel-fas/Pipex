@@ -6,11 +6,11 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 11:12:39 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/02/04 12:59:41 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/03/26 16:01:20 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../include/pipex.h"
 
 static void	skip_spaces(char *cmd_str, t_parser *p)
 {

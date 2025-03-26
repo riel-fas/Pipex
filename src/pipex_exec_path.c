@@ -6,11 +6,11 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 08:54:30 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/02/03 11:13:45 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/03/26 16:01:14 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../include/pipex.h"
 
 static void	execute_child1(char **av, int *pipe_fd, char **env)
 {
